@@ -1,9 +1,5 @@
 package com.fasterxml.jackson.module.jsonSchema.types;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -11,7 +7,11 @@ import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This type represents a {@link JsonSchema} as an object type
@@ -126,13 +126,14 @@ public class ObjectSchema extends ContainerTypeSchema
 	}
 	
 	public JsonSchema putProperty(BeanProperty property, JsonSchema value) {
-		value.setRequired(true);
 		value.enrichWithBeanProperty(property);
+		required.add(property.getName());
+
 		return properties.put(property.getName(), value);		
 	}
 
 	public JsonSchema putProperty(String name, JsonSchema value) {
-		value.setRequired(true);
+		required.add(name);
 		return properties.put(name, value);
 	}
 

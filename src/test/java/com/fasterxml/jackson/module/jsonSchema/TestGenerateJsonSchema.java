@@ -1,19 +1,20 @@
 package com.fasterxml.jackson.module.jsonSchema;
 
-import java.util.*;
-
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-
 import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
-import com.fasterxml.jackson.module.jsonSchema.types.ObjectSchema;
 import com.fasterxml.jackson.module.jsonSchema.types.ArraySchema.Items;
+import com.fasterxml.jackson.module.jsonSchema.types.ObjectSchema;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 public class TestGenerateJsonSchema
@@ -140,19 +141,19 @@ public class TestGenerateJsonSchema
         JsonSchema prop1 = properties.get("property1");
         assertNotNull(prop1);
         assertTrue(prop1.isIntegerSchema());
-        assertNull(prop1.getRequired());
+        assertFalse(object.getRequired().contains("property1"));
         assertNull(prop1.getReadonly());
 
         JsonSchema prop2 = properties.get("property2");
         assertNotNull(prop2);
         assertTrue(prop2.isStringSchema());
-        assertNull(prop2.getRequired());
+        assertFalse(object.getRequired().contains("property2"));
         assertNull(prop2.getReadonly());
 
         JsonSchema prop3 = properties.get("property3");
         assertNotNull(prop3);
         assertTrue(prop3.isArraySchema());
-        assertNull(prop3.getRequired());
+        assertFalse(object.getRequired().contains("property3"));
         assertNull(prop3.getReadonly());
         Items items = prop3.asArraySchema().getItems();
         assertTrue(items.isSingleItems());
@@ -163,7 +164,7 @@ public class TestGenerateJsonSchema
         JsonSchema prop4 = properties.get("property4");
         assertNotNull(prop4);
         assertTrue(prop4.isArraySchema());
-        assertNull(prop4.getRequired());
+        assertFalse(object.getRequired().contains("property4"));
         assertNull(prop4.getReadonly());
         items = prop4.asArraySchema().getItems();
         assertTrue(items.isSingleItems());
@@ -173,7 +174,7 @@ public class TestGenerateJsonSchema
 
         JsonSchema prop5 = properties.get("property5");
         assertNotNull(prop5);
-        assertTrue(prop5.getRequired());
+        assertTrue(object.getRequired().contains("property5"));
         assertNull(prop5.getReadonly());
 
     }
@@ -207,7 +208,7 @@ public class TestGenerateJsonSchema
         // no need to check out full structure, just basics...
         assertEquals("object", result.get("type"));
         // only add 'required' if it is true...
-        assertNull(result.get("required"));
+        assertEquals(result.get("required"), Collections.singletonList("property5"));
         assertNotNull(result.get("properties"));
     }
 

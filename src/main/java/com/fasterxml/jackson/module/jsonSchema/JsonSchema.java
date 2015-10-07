@@ -1,12 +1,18 @@
 package com.fasterxml.jackson.module.jsonSchema;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.fasterxml.jackson.module.jsonSchema.types.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The type wraps the json schema specification at :
@@ -142,11 +148,10 @@ public abstract class JsonSchema
 	private JsonSchema[] extendsextends;
 
 	/**
-	 * This attribute indicates if the instance must have a value, and not be
-	 * undefined. This is false by default, making the instance optional.
+	 * This attribute indicates what fields of the instance are required
 	 */
 	@JsonProperty
-	private Boolean required = null;
+	protected Set<String> required = new HashSet<String>();
 
     /**
      * This attribute indicates if the instance is not modifiable.
@@ -277,7 +282,7 @@ public abstract class JsonSchema
 		return extendsextends;
 	}
 
-	public Boolean getRequired() {
+	public Set<String> getRequired() {
 		return required;
 	}
 
@@ -433,7 +438,7 @@ public abstract class JsonSchema
 		this.id = id;
 	}
 
-	public void setRequired(Boolean required) {
+	public void setRequired(Set<String> required) {
 		this.required = required;
 	}
 
