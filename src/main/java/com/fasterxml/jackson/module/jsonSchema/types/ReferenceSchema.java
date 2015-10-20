@@ -18,6 +18,9 @@ public class ReferenceSchema extends SimpleTypeSchema
         this.$ref = ref;
     }
 
+    public ReferenceSchema() {
+    }
+
     @Override
     public JsonFormatTypes getType() {
         return JsonFormatTypes.OBJECT;

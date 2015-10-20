@@ -169,16 +169,19 @@ public abstract class JsonSchema
 	/**
 	 * Whether this column should be used as primary key
 	 */
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	public boolean primaryKey = false;
 
 	/**
 	 * Whether data should be sorted according to this column
 	 */
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	public boolean sortKey = false;
 
 	/**
 	 * Whether data should be distributed across nodes using this column
 	 */
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	public boolean distKey = false;
 
     /**
