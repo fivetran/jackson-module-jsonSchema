@@ -166,6 +166,21 @@ public abstract class JsonSchema
      */
     private String description;
 
+	/**
+	 * Whether this column should be used as primary key
+	 */
+	public boolean primaryKey = false;
+
+	/**
+	 * Whether data should be sorted according to this column
+	 */
+	public boolean sortKey = false;
+
+	/**
+	 * Whether data should be distributed across nodes using this column
+	 */
+	public boolean distKey = false;
+
     /**
 	 * Attempt to return this JsonSchema as an {@link AnySchema}
 	 * @return this as an AnySchema if possible, or null otherwise
