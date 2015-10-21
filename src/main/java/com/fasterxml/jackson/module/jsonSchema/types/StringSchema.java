@@ -1,5 +1,6 @@
 package com.fasterxml.jackson.module.jsonSchema.types;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
@@ -25,6 +26,12 @@ public class StringSchema extends ValueTypeSchema {
 	 */
 	@JsonProperty
 	private String pattern;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String dateFormat;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String dateTimeFormat;
 
 	@Override
 	public StringSchema asStringSchema() {
@@ -65,7 +72,23 @@ public class StringSchema extends ValueTypeSchema {
 	    this.pattern = pattern;
 	}
 
-     @Override
+	public String getDateFormat() {
+		return dateFormat;
+	}
+
+	public void setDateFormat(String dateFormat) {
+		this.dateFormat = dateFormat;
+	}
+
+	public String getDateTimeFormat() {
+		return dateTimeFormat;
+	}
+
+	public void setDateTimeFormat(String dateTimeFormat) {
+		this.dateTimeFormat = dateTimeFormat;
+	}
+
+	@Override
      public boolean equals(Object obj)
      {
          if (obj == this) return true;
