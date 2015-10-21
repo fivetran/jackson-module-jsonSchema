@@ -1,5 +1,6 @@
 package com.fasterxml.jackson.module.jsonSchema.types;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 
 /**
@@ -20,7 +21,48 @@ public abstract class SimpleTypeSchema extends JsonSchema
 	 */
 	protected String title;
 
-	/**
+    /**
+     * Iglu-style self-ref
+     */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    protected Self self = new Self();
+
+    public static class Self {
+        public String vendor, name, format, version;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Self self = (Self) o;
+
+            if (vendor != null ? !vendor.equals(self.vendor) : self.vendor != null) return false;
+            if (name != null ? !name.equals(self.name) : self.name != null) return false;
+            if (format != null ? !format.equals(self.format) : self.format != null) return false;
+            return !(version != null ? !version.equals(self.version) : self.version != null);
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = vendor != null ? vendor.hashCode() : 0;
+            result = 31 * result + (name != null ? name.hashCode() : 0);
+            result = 31 * result + (format != null ? format.hashCode() : 0);
+            result = 31 * result + (version != null ? version.hashCode() : 0);
+            return result;
+        }
+    }
+
+    public Self getSelf() {
+        return self;
+    }
+
+    public void setSelf(Self self) {
+        this.self = self;
+    }
+
+    /**
 	 * This attribute is a URI that defines what the instance's URI MUST start with in order to validate.
 	 */
 	protected String pathStart;
