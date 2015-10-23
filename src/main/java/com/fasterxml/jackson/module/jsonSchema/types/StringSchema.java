@@ -10,7 +10,7 @@ import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
  * @author jphelan
  *
  */
-public class StringSchema extends ValueTypeSchema {
+public class StringSchema extends NumberishSchema {
 
 	/** this defines the maximum length of the string. */
 	@JsonProperty
@@ -32,6 +32,9 @@ public class StringSchema extends ValueTypeSchema {
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String dateTimeFormat;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String decimalFormat;
 
 	@Override
 	public StringSchema asStringSchema() {
@@ -86,6 +89,14 @@ public class StringSchema extends ValueTypeSchema {
 
 	public void setDateTimeFormat(String dateTimeFormat) {
 		this.dateTimeFormat = dateTimeFormat;
+	}
+
+	public String getDecimalFormat() {
+		return decimalFormat;
+	}
+
+	public void setDecimalFormat(String decimalFormat) {
+		this.decimalFormat = decimalFormat;
 	}
 
 	@Override
