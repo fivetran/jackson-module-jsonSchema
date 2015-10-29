@@ -92,6 +92,12 @@ public abstract class JsonSchema
     @JsonProperty
     private String id;
 
+	/**
+	 * Used to name columns or tables in redshift
+	 */
+	@JsonProperty
+	public String name;
+
     /**
 	 * This attribute defines a URI of a schema that contains the full
 	 * representation of this schema. When a validator encounters this
