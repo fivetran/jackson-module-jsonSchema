@@ -36,6 +36,12 @@ public class StringSchema extends NumberishSchema {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String decimalFormat;
 
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String truePattern;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String falsePattern;
+
 	@Override
 	public StringSchema asStringSchema() {
 		return this;
@@ -115,4 +121,20 @@ public class StringSchema extends NumberishSchema {
                  && equals(getPattern(), that.getPattern())
                  && super.equals(that);
      }
+
+	public String getTruePattern() {
+		return truePattern;
+	}
+
+	public void setTruePattern(String truePattern) {
+		this.truePattern = truePattern;
+	}
+
+	public String getFalsePattern() {
+		return falsePattern;
+	}
+
+	public void setFalsePattern(String falsePattern) {
+		this.falsePattern = falsePattern;
+	}
 }
