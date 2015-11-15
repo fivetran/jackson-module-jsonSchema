@@ -75,7 +75,7 @@ import java.util.Set;
  * @author jphelan
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-@JsonTypeInfo(use = Id.CUSTOM, include = As.PROPERTY, property = "type", defaultImpl = AnySchema.class)
+@JsonTypeInfo(use = Id.CUSTOM, include = As.PROPERTY, property = "type", defaultImpl = ObjectSchema.class)
 @JsonTypeIdResolver(JsonSchemaIdResolver.class)
 public abstract class JsonSchema
 {
