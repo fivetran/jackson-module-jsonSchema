@@ -2,8 +2,12 @@ package com.fasterxml.jackson.module.jsonSchema.types;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
+
+import java.io.UncheckedIOException;
 
 /**
  * This represents a {@link JsonSchema} as a String
@@ -136,5 +140,14 @@ public class StringSchema extends NumberishSchema {
 
 	public void setFalsePattern(String falsePattern) {
 		this.falsePattern = falsePattern;
+	}
+
+	@Override
+	public String toString() {
+		try {
+			return new ObjectMapper().writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			throw new UncheckedIOException(e);
+		}
 	}
 }
