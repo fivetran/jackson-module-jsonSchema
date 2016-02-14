@@ -24,9 +24,9 @@ public abstract class SimpleTypeSchema extends JsonSchema
     /**
      * Iglu-style self-ref
      */
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    protected Self self = new Self();
+    protected Self self;
 
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     public static class Self {
         public String vendor, name, format, version;
 

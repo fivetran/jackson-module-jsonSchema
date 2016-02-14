@@ -24,9 +24,6 @@ public class NumberSchema extends NumberishSchema {
 	@Override
 	public boolean isNumberSchema() { return true; }
 
-	@Override
-	public NumberSchema asNumberSchema() { return this; }
-
      @Override
      public boolean equals(Object obj)
      {
@@ -42,6 +39,7 @@ public class NumberSchema extends NumberishSchema {
                  equals(getExclusiveMinimum(), that.getExclusiveMinimum()) &&
                  equals(getMaximum(), that.getMaximum()) &&
                  equals(getMinimum(), that.getMinimum()) &&
+                 equals(getMultipleOf(), that.getMultipleOf()) &&
                  super._equals(that);
      }
 }

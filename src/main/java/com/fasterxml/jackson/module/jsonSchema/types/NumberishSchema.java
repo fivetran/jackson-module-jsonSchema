@@ -92,36 +92,8 @@ public abstract class NumberishSchema extends ValueTypeSchema {
 
     @Override
     public NumberSchema asNumberSchema() {
-        ObjectNode json = CONVERTER.convertValue(this, ObjectNode.class);
-
-        json.set("type", JsonNodeFactory.instance.textNode("number"));
-
-        NumberSchema number = CONVERTER.convertValue(json, NumberSchema.class);
+        NumberSchema number = CONVERTER.convertValue(this, NumberSchema.class);
 
         return number;
-//        NumberSchema n = new NumberSchema();
-//
-//        this.getMultipleOf();
-//        this.getFormat();
-//        this.getType();
-//        this.getSelf();
-//        this.getExclusiveMaximum();
-//        this.getExclusiveMinimum();
-//        this.getMaximum();
-//        this.getMinimum();
-//        this.getMultipleOf();
-//        this.getEnums();
-//        this.getDefault();
-//        this.getLinks();
-//        this.getPathStart();
-//        this.getTitle();
-//        this.get$ref();
-//        this.get$schema();
-//        this.getDescription();
-//        this.getDisallow();
-//        this.getExtends();
-//        this.getId();
-//        this.getReadonly();
-//        this.getRequired();
     }
 }
