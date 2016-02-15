@@ -1,10 +1,7 @@
 package com.fasterxml.jackson.module.jsonSchema.types;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
-
-import java.math.BigDecimal;
 
 /**
  * This class represents a {@link JsonSchema} as a number type
@@ -23,6 +20,9 @@ public class NumberSchema extends NumberishSchema {
 	
 	@Override
 	public boolean isNumberSchema() { return true; }
+
+    @Override
+    public NumberSchema asNumberSchema() { return this; }
 
      @Override
      public boolean equals(Object obj)

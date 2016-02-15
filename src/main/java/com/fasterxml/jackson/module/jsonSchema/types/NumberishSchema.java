@@ -1,10 +1,6 @@
 package com.fasterxml.jackson.module.jsonSchema.types;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.math.BigDecimal;
 
@@ -75,27 +71,5 @@ public abstract class NumberishSchema extends ValueTypeSchema {
 
     public void setMultipleOf(BigDecimal multipleOf) {
         this.multipleOf = multipleOf;
-    }
-
-    private static final ObjectMapper CONVERTER = getObjectMapper();
-
-    private static ObjectMapper getObjectMapper() {
-        ObjectMapper mapper = new ObjectMapper();
-
-        mapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        return mapper;
-    }
-
-    @Override
-    public NumberSchema asNumberSchema() {
-        ObjectNode json = CONVERTER.convertValue(this, ObjectNode.class);
-
-        json.set("type", JsonNodeFactory.instance.textNode("number"));
-
-        NumberSchema number = CONVERTER.convertValue(json, NumberSchema.class);
-
-        return number;
     }
 }
