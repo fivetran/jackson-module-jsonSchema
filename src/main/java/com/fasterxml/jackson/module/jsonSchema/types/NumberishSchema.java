@@ -2,13 +2,11 @@ package com.fasterxml.jackson.module.jsonSchema.types;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public abstract class NumberishSchema extends ValueTypeSchema {
     /**
@@ -92,7 +90,11 @@ public abstract class NumberishSchema extends ValueTypeSchema {
 
     @Override
     public NumberSchema asNumberSchema() {
-        NumberSchema number = CONVERTER.convertValue(this, NumberSchema.class);
+        ObjectNode json = CONVERTER.convertValue(this, ObjectNode.class);
+
+        json.set("type", JsonNodeFactory.instance.textNode("number"));
+
+        NumberSchema number = CONVERTER.convertValue(json, NumberSchema.class);
 
         return number;
     }
