@@ -6,9 +6,7 @@ import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
-import com.fasterxml.jackson.module.jsonSchema.types.ArraySchema;
-import com.fasterxml.jackson.module.jsonSchema.types.ObjectSchema;
-import com.fasterxml.jackson.module.jsonSchema.types.UnionTypeSchema;
+import com.fasterxml.jackson.module.jsonSchema.types.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -206,7 +204,6 @@ public class TestReadJsonSchema
                 //"    \"required\": [ \"storage\" ],\n" +
                 "    \"properties\": {\n" +
                 "        \"storage\": {\n" +
-                "            \"type\": \"object\",\n" +
                 "            \"oneOf\": [\n" +
                 "                { \"$ref\": \"#/definitions/diskDevice\" },\n" +
                 "                { \"$ref\": \"#/definitions/diskUUID\" },\n" +
@@ -234,8 +231,8 @@ public class TestReadJsonSchema
 //                "    }\n" +
                 "}";
         ObjectSchema schema = MAPPER.readValue(schemaStr, ObjectSchema.class);
-        assertNotNull(schema.getProperties().get("storage").asObjectSchema().getOneOf());
-        assertEquals(4,schema.getProperties().get("storage").asObjectSchema().getOneOf().size());
+        assertNotNull(schema.getProperties().get("storage").asOneOfSchema().getOneOf());
+        assertEquals(4,schema.getProperties().get("storage").asOneOfSchema().getOneOf().length);
     }
 
     public void testAnyOf() throws IOException {
@@ -257,6 +254,30 @@ public class TestReadJsonSchema
         assert schema instanceof UnionTypeSchema;
 
         JsonNode expectedJson = MAPPER.readValue("{\"anyOf\": [{\"type\": \"string\"}, {\"type\": \"integer\"}]}", JsonNode.class);
+        JsonNode actualJson = MAPPER.convertValue(schema, JsonNode.class);
+
+        assertEquals(expectedJson, actualJson);
+    }
+
+    public void testAllOf() throws IOException {
+        String schemaStr = "{\"allOf\": [{\"type\": \"string\"}, {\"type\": \"integer\"}]}";
+        JsonSchema schema = MAPPER.readValue(schemaStr, JsonSchema.class);
+
+        assert schema instanceof IntersectionTypeSchema;
+
+        JsonNode expectedJson = MAPPER.readValue(schemaStr, JsonNode.class);
+        JsonNode actualJson = MAPPER.convertValue(schema, JsonNode.class);
+
+        assertEquals(expectedJson, actualJson);
+    }
+
+    public void testNot() throws IOException {
+        String schemaStr = "{\"not\": {\"type\": \"string\"}}";
+        JsonSchema schema = MAPPER.readValue(schemaStr, JsonSchema.class);
+
+        assert schema instanceof NotSchema;
+
+        JsonNode expectedJson = MAPPER.readValue(schemaStr, JsonNode.class);
         JsonNode actualJson = MAPPER.convertValue(schema, JsonNode.class);
 
         assertEquals(expectedJson, actualJson);

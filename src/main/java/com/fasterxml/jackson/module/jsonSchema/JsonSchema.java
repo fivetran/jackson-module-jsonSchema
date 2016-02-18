@@ -287,6 +287,30 @@ public abstract class JsonSchema
 	}
 
 	/**
+	 * Attempt to return this JsonSchema as an {@link IntersectionTypeSchema}
+	 * @return this as a IntersectionTypeSchema if possible, or null otherwise
+	 */
+	public IntersectionTypeSchema asIntersectionTypeSchema() {
+		return null;
+	}
+
+	/**
+	 * Attempt to return this JsonSchema as an {@link OneOfSchema}
+	 * @return this as a OneOfSchema if possible, or null otherwise
+	 */
+	public OneOfSchema asOneOfSchema() {
+		return null;
+	}
+
+	/**
+	 * Attempt to return this JsonSchema as an {@link NotSchema}
+	 * @return this as a NotSchema if possible, or null otherwise
+	 */
+	public NotSchema asNotSchema() {
+		return null;
+	}
+
+	/**
 	 * @deprecated Since 2.7
 	 */
 	@Deprecated
@@ -451,6 +475,36 @@ public abstract class JsonSchema
 	 */
 	@JsonIgnore
 	public boolean isUnionTypeSchema() {
+		return false;
+	}
+
+	/**
+	 * determine if this JsonSchema is an {@link IntersectionTypeSchema}.
+	 *
+	 * @return true if this JsonSchema is an IntersectionTypeSchema, false otherwise
+	 */
+	@JsonIgnore
+	public boolean isIntersectionTypeSchema() {
+		return false;
+	}
+
+	/**
+	 * determine if this JsonSchema is an {@link OneOfSchema}.
+	 *
+	 * @return true if this JsonSchema is an OneOfSchema, false otherwise
+	 */
+	@JsonIgnore
+	public boolean isOneOfSchema() {
+		return false;
+	}
+
+	/**
+	 * determine if this JsonSchema is an {@link NotSchema}.
+	 *
+	 * @return true if this JsonSchema is an NotSchema, false otherwise
+	 */
+	@JsonIgnore
+	public boolean isNotSchema() {
 		return false;
 	}
 

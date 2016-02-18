@@ -56,14 +56,16 @@ public class DynamicSchemaDeserializer extends JsonDeserializer<DynamicSchema> {
         } else if (json.has("anyOf")) {
             return mapper.treeToValue(json, UnionTypeSchema.class);
         } else if (json.has("allOf")) {
-            throw new RuntimeException("Unimplemented");
+            return mapper.treeToValue(json, IntersectionTypeSchema.class);
         } else if (json.has("oneOf")) {
-            throw new RuntimeException("Unimplemented");
+            return mapper.treeToValue(json, OneOfSchema.class);
         } else if (json.has("not")) {
-            throw new RuntimeException("Unimplemented");
+            return mapper.treeToValue(json, NotSchema.class);
+        } else if (json.has("$ref")) {
+            return mapper.treeToValue(json, ReferenceSchema.class);
         }
 
-        throw JsonMappingException.from(ctxt, "Expected key \"type\", \"anyOf\", \"allOf\", \"oneOf\", \"not\" but found " + json);
+        throw JsonMappingException.from(ctxt, "Expected key \"type\", \"anyOf\", \"allOf\", \"oneOf\", \"not\", \"$ref\" but found " + json);
     }
 
     public static Class<? extends JsonSchema> typeFromId(DatabindContext ctxt, String id) {
