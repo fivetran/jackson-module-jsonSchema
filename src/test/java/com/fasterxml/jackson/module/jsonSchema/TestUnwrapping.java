@@ -30,12 +30,12 @@ public class TestUnwrapping extends SchemaTestBase
         JsonSchemaGenerator generator = new JsonSchemaGenerator(MAPPER);
         JsonSchema schema = generator.generateSchema(UnwrappingRoot.class);
 
-        String json = MAPPER.writeValueAsString(schema).replace('"', '\'');
+        String json = MAPPER.writeValueAsString(schema);
         
 //System.err.println("JSON -> "+MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(schema));
         String EXP = "{'type':'object'," +
                      "'id':'urn:jsonschema:com:fasterxml:jackson:module:jsonSchema:TestUnwrapping:UnwrappingRoot'," +
                      "'properties':{'age':{'type':'integer'},'name.first':{'type':'string'},'name.last':{'type':'string'}}}";
-        assertEquals(EXP, json);
+        assertJsonEquals(aposToQuotes(EXP), json);
     }
 }

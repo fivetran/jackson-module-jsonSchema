@@ -1,19 +1,16 @@
 package com.fasterxml.jackson.module.jsonSchema;
 
-import static org.junit.Assert.assertArrayEquals;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
+
+import java.io.IOException;
+import java.util.*;
+
+import static org.junit.Assert.assertArrayEquals;
 
 public abstract class SchemaTestBase
     extends TestBase
@@ -213,5 +210,14 @@ public abstract class SchemaTestBase
 
     protected TimeZone getUTCTimeZone() {
         return TimeZone.getTimeZone("GMT");
+    }
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    protected void assertJsonEquals(String expected, String actual) throws IOException {
+        JsonNode expectedJson = MAPPER.readValue(expected, JsonNode.class);
+        JsonNode actualJson = MAPPER.readValue(actual, JsonNode.class);
+
+        assertEquals(expectedJson, actualJson);
     }
 }

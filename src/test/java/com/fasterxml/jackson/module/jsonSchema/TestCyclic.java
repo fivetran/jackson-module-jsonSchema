@@ -45,7 +45,7 @@ public class TestCyclic extends SchemaTestBase
             "\"properties\":{\"next\":{\"type\":\"object\"," +
             "\"$ref\":\"urn:jsonschema:com:fasterxml:jackson:module:jsonSchema:TestCyclic:Loop\"}" +
             ",\"name\":{\"type\":\"string\"}}}";
-        assertEquals(aposToQuotes(EXP), json);
+        assertJsonEquals(aposToQuotes(EXP), json);
     }
 
     public void testListCyclic() throws Exception
@@ -59,7 +59,7 @@ public class TestCyclic extends SchemaTestBase
             "\"properties\":{\"list\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"$ref\":\"" +
             "urn:jsonschema:com:fasterxml:jackson:module:jsonSchema:TestCyclic:ListLoop\"}}}}";
 
-        assertEquals(aposToQuotes(EXP), json);
+        assertJsonEquals(aposToQuotes(EXP), json);
     }
 
     public void testMapCyclic() throws Exception
@@ -73,7 +73,7 @@ public class TestCyclic extends SchemaTestBase
              "\"properties\":{\"map\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"object\"," +
              "\"$ref\":\"urn:jsonschema:com:fasterxml:jackson:module:jsonSchema:TestCyclic:MapLoop\"}}}}";
 
-        assertEquals(aposToQuotes(EXP), json);
+        assertJsonEquals(aposToQuotes(EXP), json);
     }
 
     public void testInnerOuterCyclic() throws Exception
@@ -89,6 +89,6 @@ public class TestCyclic extends SchemaTestBase
             "\"properties\":{\"outer\":{\"type\":\"object\"," +
             "\"$ref\":\"urn:jsonschema:com:fasterxml:jackson:module:jsonSchema:TestCyclic:OuterLoop\"}}}}}";
 
-        assertEquals(aposToQuotes(EXP), json);
+        assertJsonEquals(aposToQuotes(EXP), json);
     }
 }

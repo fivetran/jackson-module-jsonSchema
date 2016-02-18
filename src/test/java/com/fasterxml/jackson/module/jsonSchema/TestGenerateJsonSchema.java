@@ -256,7 +256,7 @@ public class TestGenerateJsonSchema
         assertNotNull(result);
 
         String mapSchemaStr = MAPPER.writeValueAsString(jsonSchema);
-        assertEquals("{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}", mapSchemaStr);
+        assertJsonEquals("{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}", mapSchemaStr);
     }
 
     /*

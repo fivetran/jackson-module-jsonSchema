@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
 import com.fasterxml.jackson.module.jsonSchema.types.ArraySchema;
 import com.fasterxml.jackson.module.jsonSchema.types.ObjectSchema;
+import com.fasterxml.jackson.module.jsonSchema.types.UnionTypeSchema;
 
 import java.io.IOException;
 import java.util.*;
@@ -235,5 +236,29 @@ public class TestReadJsonSchema
         ObjectSchema schema = MAPPER.readValue(schemaStr, ObjectSchema.class);
         assertNotNull(schema.getProperties().get("storage").asObjectSchema().getOneOf());
         assertEquals(4,schema.getProperties().get("storage").asObjectSchema().getOneOf().size());
+    }
+
+    public void testAnyOf() throws IOException {
+        String schemaStr = "{\"anyOf\": [{\"type\": \"string\"}, {\"type\": \"integer\"}]}";
+        JsonSchema schema = MAPPER.readValue(schemaStr, JsonSchema.class);
+
+        assert schema instanceof UnionTypeSchema;
+
+        JsonNode expectedJson = MAPPER.readValue(schemaStr, JsonNode.class);
+        JsonNode actualJson = MAPPER.convertValue(schema, JsonNode.class);
+
+        assertEquals(expectedJson, actualJson);
+    }
+
+    public void testArrayOfTypeIds() throws IOException {
+        String schemaStr = "{\"type\":[\"string\",\"integer\"]}";
+        JsonSchema schema = MAPPER.readValue(schemaStr, JsonSchema.class);
+
+        assert schema instanceof UnionTypeSchema;
+
+        JsonNode expectedJson = MAPPER.readValue("{\"anyOf\": [{\"type\": \"string\"}, {\"type\": \"integer\"}]}", JsonNode.class);
+        JsonNode actualJson = MAPPER.convertValue(schema, JsonNode.class);
+
+        assertEquals(expectedJson, actualJson);
     }
 }
