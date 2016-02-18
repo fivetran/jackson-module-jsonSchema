@@ -16,7 +16,7 @@ import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 public class UnionTypeSchema extends JsonSchema
 {
 	@JsonProperty
-	protected ValueTypeSchema[] elements;
+	protected JsonSchema[] anyOf;
 
      @Override
      public boolean isUnionTypeSchema() {
@@ -38,15 +38,15 @@ public class UnionTypeSchema extends JsonSchema
          return null;
      }
      
-	public ValueTypeSchema[] getElements() {
-		return elements;
+	public JsonSchema[] getAnyOf() {
+		return anyOf;
 	}
 
-	public void setElements(ValueTypeSchema[] elements) {
-	    if (elements.length < 2) {
+	public void setAnyOf(JsonSchema[] anyOf) {
+	    if (anyOf.length < 2) {
 	        throw new IllegalArgumentException("Union Type Schemas must contain two or more Simple Type Schemas");
 	    }
-		this.elements = elements;
+		this.anyOf = anyOf;
 	}
 
      @Override
@@ -60,7 +60,7 @@ public class UnionTypeSchema extends JsonSchema
 
      protected boolean _equals(UnionTypeSchema that)
      {
-         return arraysEqual(getElements(), that.getElements())
+         return arraysEqual(getAnyOf(), that.getAnyOf())
                  && super._equals(that);
      }
 }
