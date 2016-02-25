@@ -46,7 +46,7 @@ public class DynamicSchemaDeserializer extends JsonDeserializer<DynamicSchema> {
             }
             else if (type.isTextual()) {
                 String typeId = json.get("type").asText();
-                Class<? extends JsonSchema> typeClass = typeFromId(ctxt, typeId);
+                Class<? extends JsonSchema> typeClass = typeFromId(typeId);
 
                 return mapper.treeToValue(json, typeClass);
             }
@@ -63,12 +63,12 @@ public class DynamicSchemaDeserializer extends JsonDeserializer<DynamicSchema> {
             return mapper.treeToValue(json, NotSchema.class);
         } else if (json.has("$ref")) {
             return mapper.treeToValue(json, ReferenceSchema.class);
+        } else {
+            return mapper.treeToValue(json, typeFromId("object"));
         }
-
-        throw JsonMappingException.from(ctxt, "Expected key \"type\", \"anyOf\", \"allOf\", \"oneOf\", \"not\", \"$ref\" but found " + json);
     }
 
-    public static Class<? extends JsonSchema> typeFromId(DatabindContext ctxt, String id) {
+    public static Class<? extends JsonSchema> typeFromId(String id) {
         JsonFormatTypes stdType = JsonFormatTypes.forValue(id);
 
         if (stdType != null) {
