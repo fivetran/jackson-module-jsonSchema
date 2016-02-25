@@ -82,21 +82,27 @@ JSON Schema (http://tools.ietf.org/html/draft-zyp-json-schema-03) version 3 gene
     </extensions>
   </build>
 
+  <!-- You need ~/.m2/settings.xml for aws-maven to work -->
   <distributionManagement>
     <snapshotRepository>
-      <id>fivetran-maven-private</id>
-      <url>s3://fivetran-maven-private/snapshot</url>
+      <id>fivetran-maven-snapshot</id>
+      <url>s3://fivetran-maven/snapshot</url>
     </snapshotRepository>
     <repository>
-      <id>fivetran-maven-private</id>
-      <url>s3://fivetran-maven-private/release</url>
+      <id>fivetran-maven-release</id>
+      <url>s3://fivetran-maven/release</url>
     </repository>
   </distributionManagement>
 
   <repositories>
     <repository>
-      <id>fivetran-maven-private</id>
-      <url>s3://fivetran-maven-private/release</url>
+      <id>fivetran-maven-snapshot</id>
+      <url>s3://fivetran-maven/snapshot</url>
+    </repository>
+
+    <repository>
+      <id>fivetran-maven-release</id>
+      <url>s3://fivetran-maven/release</url>
     </repository>
   </repositories>
 </project>
