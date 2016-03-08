@@ -8,7 +8,7 @@
   <groupId>com.fasterxml.jackson.module</groupId>
   <artifactId>jackson-module-jsonSchema</artifactId>
   <name>jackson-module-jsonSchema</name>
-  <version>2.7.2-1-FIVETRAN</version>
+  <version>2.7.2-2-FIVETRAN</version>
   <packaging>bundle</packaging>
   <description>Add-on module for Jackson (http://jackson.codehaus.org) to support
 JSON Schema (http://tools.ietf.org/html/draft-zyp-json-schema-03) version 3 generation.
@@ -92,8 +92,9 @@ JSON Schema (http://tools.ietf.org/html/draft-zyp-json-schema-03) version 3 gene
 
   <repositories>
     <repository>
-      <id>fivetran-maven-release</id>
-      <url>s3://fivetran-maven/public/release</url>
+      <id>aws-public-release</id>
+      <name>AWS Public Release Repository</name>
+      <url>https://s3.amazonaws.com/fivetran-maven/public/release</url>
     </repository>
   </repositories>
 </project>
