@@ -129,7 +129,7 @@ public class TestGenerateJsonSchema
         assertNotNull(jsonSchema);
 
         // test basic equality, and that equals() handles null, other obs
-        assertTrue(jsonSchema.equals(jsonSchema));
+//        assertTrue(jsonSchema.equals(jsonSchema));
         assertFalse(jsonSchema.equals(null));
         assertFalse(jsonSchema.equals("foo"));
 
